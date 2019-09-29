@@ -8,4 +8,4 @@ Indivudual sites made and edited by Pranav Singhal of the North Penn School Dist
 <h2> Thank you for your time, have fun! <h2>
 <h3> See an error? Have a suggestion? Want to contribute? Contact Pranav on Discord using this server link: <h3>
 INSERT SERVER LINK
-  See you there!
+ <div> See you there! <div>
