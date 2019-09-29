@@ -1,5 +1,6 @@
 # phoenix-reborn
 Our flagship web-proxy site. Easy to modify, looks good, and runs like a dream!
+<div>
 Orginal files made and scripted by the Titanium Network team!
 For the kids, by the kids!
 Indivudual sites made and edited by Pranav Singhal of the North Penn School District
