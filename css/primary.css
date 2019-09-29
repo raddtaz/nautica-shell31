@@ -31,7 +31,7 @@ body:before {
   background-color: #171c2a;}
 
 
-.navbar:not(.top-nav-collapse) {background: rgba(49,15,34,0.7);}
+.navbar:not(.top-nav-collapse) {background: rgba(255,0,0,1);}
 
 #intro .h6 {
   font-weight: 350;
