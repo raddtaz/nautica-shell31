@@ -7,6 +7,14 @@ Indivudual sites made and edited by Pranav Singhal of the North Penn School Dist
 <h4> Please refer to our Terms of Service before using these sites. <h4>
  <div class="h6"><a href="www.nautica.gq/public-txt/tos.txt"><span style="color: white;">Click to view the Terms of Service that you are bound to by using these services.</span></a></div>
 <h2> Thank you for your time, have fun! <h2>
-<h3> See an error? Have a suggestion? Want to contribute? Contact Pranav on Discord using this server link: <h3>
-INSERT SERVER LINK
+<h3> See an error? Have a suggestion? Want to contribute? Contact the Titanium Network Team on Discord using this server link: <h3>
+https://discord.gg/TgW8hGJ
  <div> See you there! <div>
+<h6> TITANIUM SITE IS AN OPEN SOURCE SOFTWARE THAT MAY BE DISTRIBUTED FREELY! ASK ABOUT MAKING YOUR OWN TITANIUM NETWORK SITE ON THE DISCORD! USE THESE SITES: <h6>
+ <h3> 
+  freenom.com
+  
+  <div> cloudflare.com <div>
+   
+  <div> heroku.com <div>
+  <h3>
