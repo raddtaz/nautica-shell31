@@ -4,9 +4,7 @@ miniProxy - A simple PHP web proxy. <https://github.com/joshdick/miniProxy>
 Written and maintained by Joshua Dick <http://joshdick.net>.
 miniProxy is licensed under the GNU GPL v3 <http://www.gnu.org/licenses/gpl.html>.
 */
-
 /****************************** START CONFIGURATION ******************************/
-
 //To allow proxying any URL, set $whitelistPatterns to an empty array (the default).
 //To only allow proxying of specific URLs (whitelist), add corresponding regular expressions
 //to the $whitelistPatterns array. Enter the most specific patterns possible, to prevent possible abuse.
@@ -18,45 +16,35 @@ $whitelistPatterns = array(
   //getHostnamePattern("example.net")
   //getHostnamePattern("invidio.us")
 );
-
 //To enable CORS (cross-origin resource sharing) for proxied sites, set $forceCORS to true.
 $forceCORS = false;
-
 //Set to false to report the client machine's IP address to proxied sites via the HTTP `x-forwarded-for` header.
 //Setting to false may improve compatibility with some sites, but also exposes more information about end users to proxied sites.
 $anonymize = true;
-
 //Start/default URL that that will be proxied when miniProxy is first loaded in a browser/accessed directly with no URL to proxy.
 //If empty, miniProxy will show its own landing page.
 $startURL = "https://invidio.us/";
-
 //When no $startURL is configured above, miniProxy will show its own landing page with a URL form field
 //and the configured example URL. The example URL appears in the instructional text on the miniProxy landing page,
 //and is proxied when pressing the 'Proxy It!' button on the landing page if its URL form is left blank.
 $landingExampleURL = "https://invidio.us/";
-
 /****************************** END CONFIGURATION ******************************/
-
 ob_start("ob_gzhandler");
-
 if (version_compare(PHP_VERSION, "5.4.7", "<")) {
   die("miniProxy requires PHP version 5.4.7 or later.");
 }
-
 $requiredExtensions = ["curl", "mbstring", "xml"];
 foreach($requiredExtensions as $requiredExtension) {
   if (!extension_loaded($requiredExtension)) {
     die("miniProxy requires PHP's \"" . $requiredExtension . "\" extension. Please install/enable it on your server and try again.");
   }
 }
-
 //Helper function for use inside $whitelistPatterns.
 //Returns a regex that matches all HTTP[S] URLs for a given hostname.
 function getHostnamePattern($hostname) {
   $escapedHostname = str_replace(".", "\.", $hostname);
   return "@^https?://([a-z0-9-]+\.)*" . $escapedHostname . "@i";
 }
-
 //Helper function used to removes/unset keys from an associative array using case insensitive matching
 function removeKeys(&$assoc, $keys2remove) {
   $keys = array_keys($assoc);
@@ -74,7 +62,6 @@ function removeKeys(&$assoc, $keys2remove) {
   }
   return $removedKeys;
 }
-
 if (!function_exists("getallheaders")) {
   //Adapted from http://www.php.net/manual/en/function.getallheaders.php#99814
   function getallheaders() {
@@ -100,14 +87,10 @@ $prefixPort = $usingDefaultPort ? "" : ":" . $_SERVER["SERVER_PORT"];
 //Use HTTP_HOST to support client-configured DNS (instead of SERVER_NAME), but remove the port if one is present
 $prefixHost = $_SERVER["HTTP_HOST"];
 $prefixHost = strpos($prefixHost, ":") ? implode(":", explode(":", $_SERVER["HTTP_HOST"], -1)) : $prefixHost;
-
 define("PROXY_PREFIX", "http" . (isset($_SERVER["HTTPS"]) ? "s" : "") . "://" . $prefixHost . $prefixPort . $_SERVER["SCRIPT_NAME"] . "?");
-
 //Makes an HTTP request via cURL, using request data that was passed directly to this script.
 function makeRequest($url) {
-
   global $anonymize;
-
   //Tell cURL to make the request using the brower's user-agent if there is one, or a fallback user-agent otherwise.
   $user_agent = $_SERVER["HTTP_USER_AGENT"];
   if (empty($user_agent)) {
@@ -115,10 +98,8 @@ function makeRequest($url) {
   }
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-
   //Get ready to proxy the browser's request headers...
   $browserRequestHeaders = getallheaders();
-
   //...but let cURL set some headers on its own.
   $removedHeaders = removeKeys($browserRequestHeaders, array(
     "Accept-Encoding", //Throw away the browser's Accept-Encoding header if any and let cURL make the request using gzip if possible.
@@ -131,9 +112,7 @@ function makeRequest($url) {
 	"Strict-Transport-Security",
 	"X-Xss-Protection"
   ));
-
   $removedHeaders = array_map("strtolower", $removedHeaders);
-
   curl_setopt($ch, CURLOPT_ENCODING, "");
   //Transform the associative array from getallheaders() into an
   //indexed array of header strings to be passed to cURL.
@@ -152,7 +131,6 @@ function makeRequest($url) {
     $curlRequestHeaders[] = "Origin: " . $urlParts["scheme"] . "://" . $urlParts["host"] . (empty($port) ? "" : ":" . $port);
   };
   curl_setopt($ch, CURLOPT_HTTPHEADER, $curlRequestHeaders);
-
   //Proxy any received GET/POST/PUT data.
   switch ($_SERVER["REQUEST_METHOD"]) {
     case "POST":
@@ -175,29 +153,23 @@ function makeRequest($url) {
       curl_setopt($ch, CURLOPT_INFILE, fopen("php://input", "r"));
     break;
   }
-
   //Other cURL options.
   curl_setopt($ch, CURLOPT_HEADER, true);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
   //Set the request URL.
   curl_setopt($ch, CURLOPT_URL, $url);
-
   //Make the request.
   $response = curl_exec($ch);
   $responseInfo = curl_getinfo($ch);
   $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
   curl_close($ch);
-
   //Setting CURLOPT_HEADER to true above forces the response headers and body
   //to be output together--separate them.
   $responseHeaders = substr($response, 0, $headerSize);
   $responseBody = substr($response, $headerSize);
-
   return array("headers" => $responseHeaders, "body" => $responseBody, "responseInfo" => $responseInfo);
 }
-
 //Converts relative URLs to absolute ones, given a base URL.
 //Modified version of code found at http://nashruddin.com/PHP_Script_for_Converting_Relative_to_Absolute_URL
 function rel2abs($rel, $base) {
@@ -220,7 +192,6 @@ function rel2abs($rel, $base) {
   for ($n = 1; $n > 0; $abs = preg_replace(array("#(/\.?/)#", "#/(?!\.\.)[^/]+/\.\./#"), "/", $abs, -1, $n)) {} //Replace '//' or '/./' or '/foo/../' with '/'
   return $scheme . "://" . $abs; //Absolute URL is ready.
 }
-
 //Proxify contents of url() references in blocks of CSS text.
 function proxifyCSS($css, $baseURL) {
   // Add a "url()" wrapper to any CSS @import rules that only specify a URL without the wrapper,
@@ -257,7 +228,6 @@ function proxifyCSS($css, $baseURL) {
     },
     $normalizedCSS);
 }
-
 //Proxify "srcset" attributes (normally associated with <img> tags.)
 function proxifySrcset($srcset, $baseURL) {
   $sources = array_map("trim", explode(",", $srcset)); //Split all contents by comma and trim each value
@@ -269,7 +239,6 @@ function proxifySrcset($srcset, $baseURL) {
   $proxifiedSrcset = implode(", ", $proxifiedSources); //Recombine the sources into a single "srcset"
   return $proxifiedSrcset;
 }
-
 //Extract and sanitize the requested URL, handling cases where forms have been rewritten to point to the proxy.
 if (isset($_POST["miniProxyFormAction"])) {
   $url = $_POST["miniProxyFormAction"];
@@ -307,7 +276,6 @@ if (empty($scheme)) {
 } else if (!preg_match("/^https?$/i", $scheme)) {
     die('Error: Detected a "' . $scheme . '" URL. miniProxy exclusively supports http[s] URLs.');
 }
-
 //Validate the requested URL against the whitelist.
 $urlIsValid = count($whitelistPatterns) === 0;
 foreach ($whitelistPatterns as $pattern) {
@@ -319,12 +287,10 @@ foreach ($whitelistPatterns as $pattern) {
 if (!$urlIsValid) {
   die("Error: This proxy is for invidious only.");
 }
-
 $response = makeRequest($url);
 $rawResponseHeaders = $response["headers"];
 $responseBody = $response["body"];
 $responseInfo = $response["responseInfo"];
-
 //If CURLOPT_FOLLOWLOCATION landed the proxy at a diferent URL than
 //what was requested, explicitly redirect the proxy there.
 $responseURL = $responseInfo["url"];
@@ -336,10 +302,8 @@ if ($responseURL !== $url) {
   }
   exit(0);
 }
-
 //A regex that indicates which server response headers should be stripped out of the proxified response.
 $header_blacklist_pattern = "/^Content-Length|^Content-Security-Policy|^Referrer-Policy|^Strict-Transport-Security|^X-Content-Type-Options|^X-Frame-Options|^X-Xss-Protection|^Transfer-Encoding|^Content-Encoding.*gzip/i";
-
 //cURL can make multiple requests internally (for example, if CURLOPT_FOLLOWLOCATION is enabled), and reports
 //headers for every request it makes. Only proxy the last set of received response headers,
 //corresponding to the final request made by cURL for any given call to makeRequest().
@@ -354,18 +318,15 @@ foreach ($headerLines as $header) {
 }
 //Prevent robots from indexing proxified pages
 header("X-Robots-Tag: noindex, nofollow", true);
-
 if ($forceCORS) {
   //This logic is based on code found at: http://stackoverflow.com/a/9866124/278810
   //CORS headers sent below may conflict with CORS headers from the original response,
   //so these headers are sent after the original response headers to ensure their values
   //are the ones that actually end up getting sent to the browser.
   //Explicit [ $replace = true ] is used for these headers even though this is PHP's default behavior.
-
   //Allow access from any origin.
   header("Access-Control-Allow-Origin: *", true);
   header("Access-Control-Allow-Credentials: true", true);
-
   //Handle CORS headers received during OPTIONS requests.
   if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
     if (isset($_SERVER["HTTP_ACCESS_CONTROL_REQUEST_METHOD"])) {
@@ -377,26 +338,20 @@ if ($forceCORS) {
     //No further action is needed for OPTIONS requests.
     exit(0);
   }
-
 }
-
 $contentType = "";
 if (isset($responseInfo["content_type"])) $contentType = $responseInfo["content_type"];
-
 //This is presumably a web page, so attempt to proxify the DOM.
 if (stripos($contentType, "text/html") !== false) {
-
   //Attempt to normalize character encoding.
   $detectedEncoding = mb_detect_encoding($responseBody, "UTF-8, ISO-8859-1");
   if ($detectedEncoding) {
     $responseBody = mb_convert_encoding($responseBody, "HTML-ENTITIES", $detectedEncoding);
   }
-
   //Parse the DOM.
   $doc = new DomDocument();
   @$doc->loadHTML($responseBody);
   $xpath = new DOMXPath($doc);
-
   //Rewrite forms so that their actions point back to the proxy.
   foreach($xpath->query("//form") as $form) {
     $method = $form->getAttribute("method");
@@ -447,7 +402,6 @@ if (stripos($contentType, "text/html") !== false) {
       $element->setAttribute($attrName, $attrContent);
     }
   }
-
   //Attempt to force AJAX requests to be made through the proxy by
   //wrapping window.XMLHttpRequest.prototype.open in order to make
   //all request URLs absolute and point back to the proxy.
@@ -458,22 +412,18 @@ if (stripos($contentType, "text/html") !== false) {
   //https://gist.github.com/1088850
   //TODO: This is obviously only useful for browsers that use XMLHttpRequest but
   //it's better than nothing.
-
   $head = $xpath->query("//head")->item(0);
   $body = $xpath->query("//body")->item(0);
   $prependElem = $head != null ? $head : $body;
-
   //Only bother trying to apply this hack if the DOM has a <head> or <body> element;
   //insert some JavaScript at the top of whichever is available first.
   //Protects against cases where the server sends a Content-Type of "text/html" when
   //what's coming back is most likely not actually HTML.
   //TODO: Do this check before attempting to do any sort of DOM parsing?
   if ($prependElem != null) {
-
     $scriptElem = $doc->createElement("script",
       '(function() {
         if (window.XMLHttpRequest) {
-
           function parseURI(url) {
             var m = String(url).replace(/^\s+|\s+$/g, "").match(/^([^:\/?#]+:)?(\/\/(?:[^:@]*(?::[^:@]*)?@)?(([^:\/?#]*)(?::(\d*))?))?([^?#]*)(\?[^#]*)?(#[\s\S]*)?/);
             // authority = "//" + user + ":" + pass "@" + hostname + ":" port
@@ -489,9 +439,7 @@ if (stripos($contentType, "text/html") !== false) {
               hash : m[8] || ""
             } : null);
           }
-
           function rel2abs(base, href) { // RFC 3986
-
             function removeDotSegments(input) {
               var output = [];
               input.replace(/^(\.\.?(\/|$))+/, "")
@@ -506,18 +454,14 @@ if (stripos($contentType, "text/html") !== false) {
                 });
               return output.join("").replace(/^\//, input.charAt(0) === "/" ? "/" : "");
             }
-
             href = parseURI(href || "");
             base = parseURI(base || "");
-
             return !href || !base ? null : (href.protocol || base.protocol) +
             (href.protocol || href.authority ? href.authority : base.authority) +
             removeDotSegments(href.protocol || href.authority || href.pathname.charAt(0) === "/" ? href.pathname : (href.pathname ? ((base.authority && !base.pathname ? "/" : "") + base.pathname.slice(0, base.pathname.lastIndexOf("/") + 1) + href.pathname) : base.pathname)) +
             (href.protocol || href.authority || href.pathname ? href.search : (href.search || base.search)) +
             href.hash;
-
           }
-
           var proxied = window.XMLHttpRequest.prototype.open;
           window.XMLHttpRequest.prototype.open = function() {
               if (arguments[1] !== null && arguments[1] !== undefined) {
@@ -531,17 +475,12 @@ if (stripos($contentType, "text/html") !== false) {
               }
               return proxied.apply(this, [].slice.call(arguments));
           };
-
         }
-
       })();'
     );
     $scriptElem->setAttribute("type", "text/javascript");
-
     $prependElem->insertBefore($scriptElem, $prependElem->firstChild);
-
   }
-
   echo "<!-- Proxified page constructed by miniProxy -->\n" . $doc->saveHTML();
 } else if (stripos($contentType, "text/css") !== false) { //This is CSS, so proxify url() references.
   echo proxifyCSS($responseBody, $url);
