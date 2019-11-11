@@ -1,0 +1,74 @@
+ 
+ <html class="full-height" lang="en-US">
+<head>
+  <title>My Drive - Google Drive</title>
+  <link rel="icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_4.ico">
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/primary.css" rel="stylesheet">
+  <link href="./font/fontawesome/css/all.css" rel="stylesheet">
+</head>
+<header>
+  <!-- Navbar-->
+  <nav class="navbar white-text navbar-expand-lg navbar-dark notstickerz" id="navbar">
+    <div class="container"><a class="navbar-brand" href="index.html"><strong>NauticaShard</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link waves-effect waves-light" href="./">Go Home</a></li>
+          <li class="nav-item"><a class="nav-link waves-effect waves-light" href="./selection3.html">Games</a></li>
+          <li class="nav-item"><a class="nav-link waves-effect waves-light" href="./selection2.html">Watch Movies/TV</a></li>
+          <li class="nav-item"><a class="nav-link waves-effect waves-light" href="./contributors.html">Staff & Contributors</a></li></ul>
+          <a class="nav-link waves-effect waves-light" onclick="document.getElementById('gframe').requestFullscreen()"><i class="fas fa-compress"></i></a>
+      </div>
+    </div>
+  </nav>
+</header> 
+<div>
+	<div id="emulator">
+		<p>To play this game, please, download the latest Flash player!</p>
+		<br>
+		<a href="http://www.adobe.com/go/getflashplayer">
+			<img src="//www.adobe.com/images/shared/download_buttons/get_adobe_flash_player.png" alt="Get Adobe Flash player"/>
+		</a>
+	</div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+
+<script type="text/javascript">
+
+	var resizeOwnEmulator = function(width, height)
+	{
+		var emulator = $('#emulator');
+		emulator.css('width', width);
+		emulator.css('height', height);
+	}
+
+	$(function()
+	{
+		function embed()
+		{
+			var emulator = $('#emulator');
+			if(emulator)
+			{
+				var flashvars = 
+				{
+					system : 'sega',
+					url : '/roms/Flappy Bird (PD) v1.0.gen'
+				};
+				var params = {};
+				var attributes = {};
+				
+				params.allowscriptaccess = 'sameDomain';
+				params.allowFullScreen = 'true';
+				params.allowFullScreenInteractive = 'true';
+				
+				swfobject.embedSWF('flash/Nesbox.swf', 'emulator', '640', '480', '11.2.0', 'flash/expressInstall.swf', flashvars, params, attributes);
+			}
+		}
+		
+		embed();
+	});
+	
+</script>
