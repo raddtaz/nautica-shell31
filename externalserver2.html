@@ -24,6 +24,14 @@
       </div>
     </div>
   </nav>
+  <center>
+						<form action="" method="get" id="web-search-box" style="transform:scale(1.1)">
+							<p>
+								<input type="text" placeholder="Enter URL" style="border:none;border-radius: 5px;padding:10px;" id="url" name="url" />&nbsp;
+								<input type="submit" style="border:none;border-radius: 5px;padding:10px;width:40px;background:#704ea0;color:#fff;font-weight:bold;" value="GO" />
+							</p>
+						</form>
+        </center>
   <div class="spacefromtop">
     <div class="container">
       <div class "wow white-text" style="visibility:visible">
@@ -49,7 +57,7 @@
         $('web-search-box').onsubmit = function() {
           var url = $('url').value;
           //this is the URL for the server
-           window.location.href = `https://randomdomainname.ml/suibndiuvhdifuhvisduhvisduvhisduhvisduhvi/${url}`;
+           window.location.href = `https://randomdomainname.ml/proxy/${url}`;
           return false;
         };
         window.onload = function() {
