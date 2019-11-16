@@ -34,6 +34,7 @@ body:before {
 .navbar:not(.top-nav-collapse) {background: rgba(8,37,84,0.7);}
 
 #intro .h6 {
+  font-family: "Andale Mono", monospace;
   font-weight: 350;
   line-height: 1.7;
 }
