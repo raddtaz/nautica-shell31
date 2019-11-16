@@ -8,7 +8,7 @@ body:before {
  position: fixed;
  left: 0; right: 0;
  top: 0; bottom: 0;
- background: linear-gradient(45deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.56) 90%);
+ background: linear-gradient(45deg, rgba(166, 55, 55, 0.62), rgba(166, 55, 55, 0.56) 90%);
  /*background: linear-gradient(15deg, rgba(42, 27, 161, 0.2), rgba(255, 10, 20, 0.26) 90%);*/
  z-index: -99999;
  
@@ -28,10 +28,10 @@ body:before {
 
 
 .top-nav-collapse {
-  background-color: #171c2a;}
+  background-color: #0a4afd;}
 
 
-.navbar:not(.top-nav-collapse) {background: rgba(49,15,34,0.7);}
+.navbar:not(.top-nav-collapse) {background: rgba(0,0,128,0.7);}
 
 #intro .h6 {
   font-weight: 350;
@@ -57,9 +57,9 @@ header {
 
 
 /*this stuff is the only necessary stuff from legacy.css*/
-.c-box{     font-family: 'Roboto', sans-serif; 	position:relative; 	padding:20px 40px; 	background:rgba(49,15,34, 0.8); 	-webkit-box-shadow:1px 2px 3px #000; 	   -moz-box-shadow:1px 2px 3px #111; 	        box-shadow:1px 2px 3px #1d1d1d; 	-webkit-border-radius:.9em;        -moz-border-radius:.9em; 	        border-radius:.9em; } .c-box h1{ 	margin:0 0 12px 0; 	padding:12px 0; 	font-size:24px; 	color:#ffffff; 	border-bottom:2px dotted #ffffff; } .c-box p{ 	margin:0 0 12px 0; 	line-height:1.5em; 	font-size:15px; 	color:#ffffff; } .c-box span{ 	font-weight:bold; } /*Table*/ .table{ 	display:table; 	font-size:12px; 	border-bottom:1px solid #ffffff; 	color:#c3aea2; 	margin:3em auto; }
+.c-box{     font-family: 'Andale Mono', monospace; 	position:relative; 	padding:20px 40px; 	background:rgba(49,15,34, 0.8); 	-webkit-box-shadow:1px 2px 3px #000; 	   -moz-box-shadow:1px 2px 3px #111; 	        box-shadow:1px 2px 3px #1d1d1d; 	-webkit-border-radius:.9em;        -moz-border-radius:.9em; 	        border-radius:.9em; } .c-box h1{ 	margin:0 0 12px 0; 	padding:12px 0; 	font-size:24px; 	color:#ffffff; 	border-bottom:2px dotted #ffffff; } .c-box p{ 	margin:0 0 12px 0; 	line-height:1.5em; 	font-size:15px; 	color:#ffffff; } .c-box span{ 	font-weight:bold; } /*Table*/ .table{ 	display:table; 	font-size:12px; 	border-bottom:1px solid #ffffff; 	color:#c3aea2; 	margin:3em auto; }
 
-.d-box{ font-family: 'Roboto', sans-serif; 	position:relative; 	padding:20px 40px; 	  background: rgba(50 ,50 ,50, 0.4); 	-webkit-box-shadow:1px 2px 3px #000; 	   -moz-box-shadow:1px 2px 3px #111; 	        box-shadow:1px 2px 3px #1d1d1d; 	-webkit-border-radius:.9em;        -moz-border-radius:.9em; 	        border-radius:.9em; } .d-box h1{ 	margin:0 0 12px 0; 	padding:12px 0; 	font-size:24px; 	color:#ffffff; 	border-bottom:2px dotted #ffffff; } .d-box p{ 	margin:0 0 12px 0; 	line-height:1.5em; 	font-size:15px; 	color:#ffffff; } .d-box span{ 	font-weight:bold; } /*Table*/ .table{ 	display:table; 	font-size:12px; 	border-bottom:1px solid #ffffff; 	color:#c3aea2; 	margin:3em auto; }
+.d-box{ font-family: 'Andale Mono', monospace; 	position:relative; 	padding:20px 40px; 	  background: rgba(50 ,50 ,50, 0.4); 	-webkit-box-shadow:1px 2px 3px #000; 	   -moz-box-shadow:1px 2px 3px #111; 	        box-shadow:1px 2px 3px #1d1d1d; 	-webkit-border-radius:.9em;        -moz-border-radius:.9em; 	        border-radius:.9em; } .d-box h1{ 	margin:0 0 12px 0; 	padding:12px 0; 	font-size:24px; 	color:#ffffff; 	border-bottom:2px dotted #ffffff; } .d-box p{ 	margin:0 0 12px 0; 	line-height:1.5em; 	font-size:15px; 	color:#ffffff; } .d-box span{ 	font-weight:bold; } /*Table*/ .table{ 	display:table; 	font-size:12px; 	border-bottom:1px solid #ffffff; 	color:#c3aea2; 	margin:3em auto; }
 
 .wrap{ 	width:1000px; 	margin:0 auto; } .logo a{     font-family: 'Righteous', sans-serif; 	margin:20px; 	color:#ffffff; 	font-size:40px; 	float:left; 	text-transform:uppercase; }
 
