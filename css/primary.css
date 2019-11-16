@@ -27,7 +27,7 @@ body:before {
 }
 
 .nav-wrapper {
-  background: linear-gradient(from top, #0d3a83 , #061b3d);
+  background: linear-gradient(to bottom, #0d3a83 , #061b3d);
 }
 
 .top-nav-collapse {
