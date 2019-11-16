@@ -30,7 +30,7 @@ body:before {
 .top-nav-collapse {
   background-color: #061b3d;}
 
-.navbar:not(.top-nav-collapse) {background: rgba(4,16,37,0.7);}
+.navbar:not(.top-nav-collapse) {background: #061b3d;}
 
 #intro .h6 {
   font-family: "Andale Mono", monospace;
