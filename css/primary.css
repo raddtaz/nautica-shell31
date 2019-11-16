@@ -27,6 +27,7 @@ body:before {
 }
 
 .nav-wrapper {
+  height: 50 px;
   background: linear-gradient(to bottom, #0d3a83 , #061b3d);
 }
 
