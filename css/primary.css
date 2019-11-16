@@ -28,7 +28,7 @@ body:before {
 
 
 .top-nav-collapse {
-  background-image: linear-gradient(#0f449a, #061b3d);}
+  background-color: #061b3d;}
 
 .navbar:not(.top-nav-collapse) {background: rgba(4,16,37,0.7);}
 
