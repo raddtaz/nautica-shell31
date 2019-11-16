@@ -28,10 +28,10 @@ body:before {
 
 
 .top-nav-collapse {
-  background-color: #000000;}
+  background-color: #082554;}
 
 
-.navbar:not(.top-nav-collapse) {background: rgba(0,0,0,0.7);}
+.navbar:not(.top-nav-collapse) {background: rgba(8,37,84,0.7);}
 
 #intro .h6 {
   font-weight: 350;
