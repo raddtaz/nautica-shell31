@@ -17,5 +17,4 @@ javascript:(function() {
 })();
 
 You can change some of the stuff there to make it look like any other site.
-
-Change document.title to change the title of the page and change link.href to change the favicon/logo.
+If you have any problems discord RaddTaz#0069
